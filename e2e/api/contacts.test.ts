@@ -121,5 +121,55 @@ describe('Contacts API', () => {
           });
       });
     });
-  })
+  });
+
+  describe('PUT /api/contacts/:id', () => {
+    describe('Update one contact', () => {
+      let newId: string;
+
+      before(async () => {
+        newId = await contacts.create({
+          name: 'Random One',
+          email: 'any@mail.com',
+          phone_work: 'phone_work',
+          phone_home: 'phone_home',
+          phone_mobile: 'phone_mobile',
+          phone_other: 'phone_other',
+          address: 'address'
+        })
+      })
+
+      it('should return 200', () => {
+        const data = {
+          name: 'New Name',
+          email: 'new@email.com',
+          phone_work: 'new phone_work',
+          phone_home: 'new phone_home',
+          phone_mobile: 'new phone_mobile',
+          phone_other: 'new phone_other',
+          address: 'new address'
+        };
+
+        return request(server)
+          .put(`/api/contacts/${newId}`)
+          .set('Authorization', `ApiKey ${config.apiKey}`)
+          .send(data)
+          .expect(200)
+          .then(() => contacts.getOne({ id: newId }))
+          .then((result) => {
+            expect(result).to.be.eql({
+              id: newId,
+              name: 'New Name',
+              email: 'new@email.com',
+              phone_work: 'new phone_work',
+              phone_home: 'new phone_home',
+              phone_mobile: 'new phone_mobile',
+              phone_other: 'new phone_other',
+              address: 'new address'
+            });
+          });
+      })
+    })
+  });
+
 });

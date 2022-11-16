@@ -29,6 +29,53 @@ export const create = async (contact) => {
   return result.insertId;
 };
 
+export const update = (qry, contact) => {
+  if (!qry) {
+    throw new Error('DB Query is required');
+  }
+
+  const parts = [];
+
+  if (Object.prototype.hasOwnProperty.call(contact, 'name')) {
+    parts.push(['name = :name', { name: contact.name }]);
+  }
+
+  if (Object.prototype.hasOwnProperty.call(contact, 'email')) {
+    parts.push(['email = :email', { email: contact.email }]);
+  }
+
+  if (Object.prototype.hasOwnProperty.call(contact, 'phone_work')) {
+    parts.push(['phone_work = :phone_work', { phone_work: contact.phone_work }]);
+  }
+
+  if (Object.prototype.hasOwnProperty.call(contact, 'phone_home')) {
+    parts.push(['phone_home = :phone_home', { phone_home: contact.phone_home }]);
+  }
+
+  if (Object.prototype.hasOwnProperty.call(contact, 'phone_mobile')) {
+    parts.push(['phone_mobile = :phone_mobile', { phone_mobile: contact.phone_mobile }]);
+  }
+
+  if (Object.prototype.hasOwnProperty.call(contact, 'phone_other')) {
+    parts.push(['phone_other = :phone_other', { phone_other: contact.phone_other }]);
+  }
+
+  if (Object.prototype.hasOwnProperty.call(contact, 'address')) {
+    parts.push(['address = :address', { address: contact.address }]);
+  }
+
+  const fields = {
+    operator: ',',
+    parts
+  };
+
+  if (qry.id) {
+    return queries.update_contact({ id: qry.id, '~fields': fields }, adapter);
+  } else {
+    throw new Error('DB Query not supported');
+  }
+};
+
 export const remove = (qry: any) => {
   if (!qry) {
     throw new Error('DB Query is required');

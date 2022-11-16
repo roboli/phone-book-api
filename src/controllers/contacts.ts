@@ -43,6 +43,27 @@ export const create = async (req: any, res: any) => {
   }
 }
 
+export const update = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+
+    const contact = await contacts.getOne({ id });
+
+    if (!contact) {
+      return res.sendStatus(404);
+    }
+
+    await contacts.update({ id }, req.body);
+
+    res.sendStatus(200);
+
+  } catch (e) {
+    console.error(e);
+    res.sendStatus(500);
+  }
+};
+
 export const remove = async (req, res) => {
   const { id } = req.params;
 

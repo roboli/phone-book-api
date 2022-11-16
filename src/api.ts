@@ -13,4 +13,6 @@ router.get('/contacts/:id', contacts.getOne);
 
 router.post('/contacts', contacts.create);
 
+router.put('/contacts/:id', contacts.update);
+
 export default router;
