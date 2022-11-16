@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "Phone book API challenge",
   "main": "index.js",
-  "type": "module",
   "scripts": {
-    "start": "node src/index.js",
+    "build": "tsc",
+    "start": "node build/index.js",
+    "start:dev": "ts-node src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
@@ -25,5 +26,11 @@
   "homepage": "https://github.com/roboli/phone-book-api#readme",
   "dependencies": {
     "express": "4.18.2"
+  },
+  "devDependencies": {
+    "@types/express": "4.17.14",
+    "@types/node": "18.11.9",
+    "ts-node": "10.9.1",
+    "typescript": "4.9.3"
   }
 }
