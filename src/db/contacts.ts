@@ -15,3 +15,19 @@ export const create = async (contact) => {
   const result = await queries.insert_contact({ '$contact': contact }, adapter);
   return result.insertId;
 };
+
+export const remove = (qry: any) => {
+  if (!qry) {
+    throw new Error('DB Query is required');
+  }
+
+  if (!qry.all) {
+    if (qry.id) {
+      return queries.remove_contact({ id: qry.id }, adapter);
+    } else {
+      throw new Error('DB Query not supported');
+    }
+  }
+
+  return queries.remove_all({}, adapter);
+};

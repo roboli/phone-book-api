@@ -22,3 +22,7 @@ export const create = async (model): Promise<string> => {
 
   return uid;
 };
+
+export const remove = (query: any = {}) => {
+  return db.remove(query);
+};
