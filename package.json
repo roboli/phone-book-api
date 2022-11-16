@@ -4,7 +4,7 @@
   "description": "Phone book API challenge",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && cp src/db/*.sql build/db",
     "start": "NODE_CONFIG_DIR=./src/config node build/index.js",
     "start:dev": "NODE_CONFIG_DIR=./src/config ts-node src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
