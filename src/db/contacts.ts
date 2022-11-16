@@ -11,10 +11,20 @@ export const getAll = (qry: any, opts: any) => {
   let options = {};
 
   if (opts.size) {
-    options['*limit'] = parseInt(opts.size);
+    options['limit'] = parseInt(opts.size);
+
+    if (opts.index) {
+      options['offset'] = parseInt(opts.index);
+    } else {
+      options['offset'] = 0;
+    }
   }
 
-  return queries.get_all(options, adapter);
+  if (Object.keys(options).length) {
+    return queries.get_all_limit(options, adapter);
+  } else {
+    return queries.get_all(options, adapter);
+  }
 };
 
 export const getOne = async (qry) => {

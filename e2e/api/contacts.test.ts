@@ -8,6 +8,10 @@ import * as contacts from '../../src/models/contacts';
 describe('Contacts API', () => {
   server.use('/api', apiRouter);
 
+  afterEach(async () => {
+    contacts.remove({ all: true });
+  });
+
   describe('DELETE /api/contacts/:id', () => {
     describe('Remove one contact', () => {
       let newId: string;
@@ -66,22 +70,17 @@ describe('Contacts API', () => {
       before(async () => {
         await contacts.create({
           name: 'Random One',
-          email: 'any@mail.com'
+          email: 'any@one.com'
         });
 
         await contacts.create({
           name: 'Random Two',
-          email: 'other@mail.com'
+          email: 'other@two.com'
         });
 
         await contacts.create({
           name: 'Random Three',
           email: 'any@three.com'
-        });
-
-        await contacts.create({
-          name: 'Random Four',
-          email: 'any@four.com'
         });
 
         await contacts.create({
@@ -103,6 +102,11 @@ describe('Contacts API', () => {
           name: 'Random Seven',
           email: 'any@seven.com'
         });
+
+        await contacts.create({
+          name: 'Random Eight',
+          email: 'any@eight.com'
+        });
       })
 
       it('should return 200 with list of contacts', () => {
@@ -112,9 +116,65 @@ describe('Contacts API', () => {
           .expect(200)
           .then(({ body }) => {
             expect(body.length).to.be.equal(5);
+            expect(body[4].name).to.be.equal('Random Five');
           });
       })
     });
+
+    describe('Fetch last three contacts', () => {
+      before(async () => {
+        await contacts.create({
+          name: 'Random One',
+          email: 'any@one.com'
+        });
+
+        await contacts.create({
+          name: 'Random Two',
+          email: 'other@two.com'
+        });
+
+        await contacts.create({
+          name: 'Random Three',
+          email: 'any@three.com'
+        });
+
+        await contacts.create({
+          name: 'Random Four',
+          email: 'any@four.com'
+        });
+
+        await contacts.create({
+          name: 'Random Five',
+          email: 'any@five.com'
+        });
+
+        await contacts.create({
+          name: 'Random Six',
+          email: 'any@six.com'
+        });
+
+        await contacts.create({
+          name: 'Random Seven',
+          email: 'any@seven.com'
+        });
+
+        await contacts.create({
+          name: 'Random Eight',
+          email: 'any@eight.com'
+        });
+      })
+
+      it('should return 200 with list of contacts', () => {
+        return request(server)
+          .get('/api/contacts?index=5&size=5')
+          .set('Authorization', `ApiKey ${config.apiKey}`)
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.length).to.be.equal(3);
+            expect(body[2].name).to.be.equal('Random Eight');
+          });
+      })
+    })
   });
 
   describe('GET /api/contacts/:id', () => {

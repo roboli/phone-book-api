@@ -1,5 +1,8 @@
 -- name: get_all
-SELECT uid AS id, name, email FROM contacts :*limit{LIMIT *}
+SELECT uid AS id, name, email FROM contacts :*limit{LIMIT *}  :*offset{OFFSET *}
+
+-- name: get_all_limit
+SELECT uid AS id, name, email FROM contacts LIMIT :limit OFFSET :offset
 
 -- name: get_one
 SELECT uid AS id, name, email, phone_work, phone_home, phone_mobile, phone_other, address FROM contacts WHERE uid = :id
