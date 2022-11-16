@@ -1,5 +1,5 @@
 -- name: get_all
-SELECT uid AS id, name, email FROM contacts
+SELECT uid AS id, name, email FROM contacts :*limit{LIMIT *}
 
 -- name: get_one
 SELECT uid AS id, name, email, phone_work, phone_home, phone_mobile, phone_other, address FROM contacts WHERE uid = :id

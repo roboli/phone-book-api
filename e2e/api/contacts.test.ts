@@ -60,7 +60,61 @@ describe('Contacts API', () => {
             expect(body.length).to.be.equal(2);
           });
       })
-    })
+    });
+
+    describe('Fetch first five contacts', () => {
+      before(async () => {
+        await contacts.create({
+          name: 'Random One',
+          email: 'any@mail.com'
+        });
+
+        await contacts.create({
+          name: 'Random Two',
+          email: 'other@mail.com'
+        });
+
+        await contacts.create({
+          name: 'Random Three',
+          email: 'any@three.com'
+        });
+
+        await contacts.create({
+          name: 'Random Four',
+          email: 'any@four.com'
+        });
+
+        await contacts.create({
+          name: 'Random Four',
+          email: 'any@four.com'
+        });
+
+        await contacts.create({
+          name: 'Random Five',
+          email: 'any@five.com'
+        });
+
+        await contacts.create({
+          name: 'Random Six',
+          email: 'any@six.com'
+        });
+
+        await contacts.create({
+          name: 'Random Seven',
+          email: 'any@seven.com'
+        });
+      })
+
+      it('should return 200 with list of contacts', () => {
+        return request(server)
+          .get('/api/contacts?index=0&size=5')
+          .set('Authorization', `ApiKey ${config.apiKey}`)
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.length).to.be.equal(5);
+          });
+      })
+    });
   });
 
   describe('GET /api/contacts/:id', () => {

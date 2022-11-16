@@ -12,8 +12,8 @@ interface Contact {
   address: string | null
 }
 
-export const getAll = (query: any = {}): Promise<Contact[]> => {
-  return db.getAll(query);
+export const getAll = (query: any = {}, opts: any = {}): Promise<Contact[]> => {
+  return db.getAll(query, opts);
 };
 
 export const getOne = async (query: any = {}): Promise<Contact> => {

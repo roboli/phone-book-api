@@ -2,7 +2,18 @@ import * as contacts from '../models/contacts';
 
 export const getAll = async (req: any, res: any) => {
   try {
-    const results = await contacts.getAll();
+    let opts: any = {};
+
+    if (req.query.index) {
+      opts.index = req.query.index;
+    }
+
+    if (req.query.size) {
+      opts.size = req.query.size;
+    }
+
+    const results = await contacts.getAll({}, opts);
+
     res.json(results);
   } catch (e) {
     console.error(e);

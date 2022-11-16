@@ -7,8 +7,14 @@ const adapter = puresql.adapters.mysql(connection, () => { });
 // Load our queries
 const queries = puresql.loadQueries(__dirname + '/contacts.sql');
 
-export const getAll = (qry: any) => {
-  return queries.get_all({}, adapter);
+export const getAll = (qry: any, opts: any) => {
+  let options = {};
+
+  if (opts.size) {
+    options['*limit'] = parseInt(opts.size);
+  }
+
+  return queries.get_all(options, adapter);
 };
 
 export const getOne = async (qry) => {
