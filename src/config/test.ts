@@ -1,3 +1,6 @@
+
+export const apiKey = 'test_api_key';
+
 export const mysql = {
   host: process.env.MYSQL_HOST_TEST,
   user: process.env.MYSQL_USER_TEST,

@@ -6,6 +6,10 @@ if (env !== 'production') {
   require('dotenv').config();
 }
 
+export const port = process.env.PORT || 3010;
+
+export const apiKey = process.env.API_KEY;
+
 export const mysql = {
   host: process.env.MYSQL_HOST,
   user: process.env.MYSQL_USER,

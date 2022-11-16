@@ -1,7 +1,8 @@
+import config from 'config';
 import server from './server';
 import apiRouter from './api';
 
-const port = 3010;
+const port = config.port;
 
 server.use('/api', apiRouter);
 
