@@ -1,0 +1,18 @@
+{
+  "dev": {
+    "driver": "mysql",
+    "host": {"ENV": "MYSQL_HOST"},
+    "user": {"ENV": "MYSQL_USER"},
+    "password": {"ENV": "MYSQL_PASSWORD"},
+    "database": {"ENV": "MYSQL_DATABASE"},
+    "multipleStatements": true
+  },
+  "test": {
+    "driver": "mysql",
+    "host": {"ENV": "MYSQL_HOST_TEST"},
+    "user": {"ENV": "MYSQL_USER_TEST"},
+    "password": {"ENV": "MYSQL_PASSWORD_TEST"},
+    "database": {"ENV": "MYSQL_DATABASE_TEST"},
+    "multipleStatements": true
+  }
+}
