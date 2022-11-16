@@ -1,0 +1,29 @@
+{
+  "name": "phone-book-api",
+  "version": "1.0.0",
+  "description": "Phone book API challenge",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "~18.12.0",
+    "npm": "~7.19.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roboli/phone-book-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/roboli/phone-book-api/issues"
+  },
+  "homepage": "https://github.com/roboli/phone-book-api#readme",
+  "dependencies": {
+    "express": "4.18.2"
+  }
+}
