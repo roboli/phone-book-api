@@ -8,6 +8,35 @@ import * as contacts from '../../src/models/contacts';
 describe('Contacts API', () => {
   server.use('/api', apiRouter);
 
+  describe('DELETE /api/contacts/:id', () => {
+    describe('Remove one contact', () => {
+      let newId: string;
+
+      before(async () => {
+        newId = await contacts.create({
+          name: 'Random One',
+          email: 'any@mail.com',
+          phone_work: 'phone_work',
+          phone_home: 'phone_home',
+          phone_mobile: 'phone_mobile',
+          phone_other: 'phone_other',
+          address: 'address'
+        })
+      })
+
+      it('should return 200', () => {
+        return request(server)
+          .delete(`/api/contacts/${newId}`)
+          .set('Authorization', `ApiKey ${config.apiKey}`)
+          .expect(200)
+          .then(() => contacts.getOne({ id: newId }))
+          .then((result) => {
+            expect(result).to.be.undefined;
+          });
+      })
+    })
+  })
+
   describe('GET /api/contacts', () => {
     describe('Fetch all contacts', () => {
       before(async () => {

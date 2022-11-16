@@ -6,6 +6,8 @@ const router = express.Router();
 
 router.use(isValidApiKey);
 
+router.delete('/contacts/:id', contacts.remove);
+
 router.get('/contacts', contacts.getAll);
 router.get('/contacts/:id', contacts.getOne);
 
