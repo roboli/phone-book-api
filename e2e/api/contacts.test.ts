@@ -34,6 +34,46 @@ describe('Contacts API', () => {
     })
   });
 
+  describe('GET /api/contacts/:id', () => {
+    describe('Fetch one contact', () => {
+      let newId: string;
+
+      before(async () => {
+        newId = await contacts.create({
+          name: 'Random One',
+          email: 'any@mail.com',
+          phone_work: 'phone_work',
+          phone_home: 'phone_home',
+          phone_mobile: 'phone_mobile',
+          phone_other: 'phone_other',
+          address: 'address'
+        })
+      })
+
+      it('should return 200 with contact', () => {
+        return request(server)
+          .get(`/api/contacts/${newId}`)
+          .set('Authorization', `ApiKey ${config.apiKey}`)
+          .expect(200)
+          .then(({ body }) => {
+            const { id, ...rest } = body;
+
+            expect(id).to.be.equal(newId);
+
+            expect(rest).to.be.eql({
+              name: 'Random One',
+              email: 'any@mail.com',
+              phone_work: 'phone_work',
+              phone_home: 'phone_home',
+              phone_mobile: 'phone_mobile',
+              phone_other: 'phone_other',
+              address: 'address'
+            });
+          });
+      })
+    })
+  });
+
   describe('POST /api/contacts', () => {
     describe('Create contact', () => {
       const data = {

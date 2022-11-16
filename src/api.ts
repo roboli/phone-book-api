@@ -7,6 +7,7 @@ const router = express.Router();
 router.use(isValidApiKey);
 
 router.get('/contacts', contacts.getAll);
+router.get('/contacts/:id', contacts.getOne);
 
 router.post('/contacts', contacts.create);
 

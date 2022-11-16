@@ -11,6 +11,19 @@ export const getAll = (qry: any) => {
   return queries.get_all({}, adapter);
 };
 
+export const getOne = async (qry) => {
+  if (!qry) {
+    throw new Error('DB Query is required');
+  }
+
+  if (qry.id) {
+    const result = await queries.get_one({ id: qry.id }, adapter);
+    return result && result[0];
+  } else {
+    throw new Error('DB Query not supported');
+  }
+};
+
 export const create = async (contact) => {
   const result = await queries.insert_contact({ '$contact': contact }, adapter);
   return result.insertId;
