@@ -5,4 +5,6 @@ const router = express.Router();
 
 router.get('/contacts', contacts.getAll);
 
+router.post('/contacts', contacts.create);
+
 export default router;
