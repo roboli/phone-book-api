@@ -1,12 +1,9 @@
-import express from 'express';
-import bodyParser from 'body-parser';
+import server from './server';
+import apiRouter from './api';
 
-const port   = 3010;
-const server = express();
+const port = 3010;
 
-server.use(bodyParser.json());
-
-server.get('/ping', (req, res) => { res.json({ result: 'pong' }); });
+server.use('/api', apiRouter);
 
 server.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
